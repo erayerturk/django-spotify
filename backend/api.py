@@ -32,5 +32,4 @@ def get_tracks(request, genre: str):
 
     else:
         return 400, {"errors": {"genre": "Genre could not found"}}
-    print(sorted_tracks_list)
     return 200, sorted_tracks_list
