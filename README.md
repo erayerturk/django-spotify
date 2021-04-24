@@ -23,7 +23,7 @@ python3 manage.py migrate
 python3 manage.py runserver
 ```
 
-## Thirt Party Libraries
+## Third Party Libraries
 
 
 - django-ninja==0.12.2
