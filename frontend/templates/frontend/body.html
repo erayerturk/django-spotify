@@ -1,4 +1,3 @@
-{#{% extends 'base.html' %}#}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -18,57 +17,16 @@
 </head>
 <body>
 <div>
-    <div>
-        <input id="genre" name="genre" required type="text" placeholder="rock">
-        <button onclick="getByGenre()">Search</button>
-    </div>
-    <br>
-    <div>
-        <table id="results">
-        </table>
-    </div>
+    <div id="spotify-search"></div>
 </div>
 
 
-<script>
-    function createRow(track) {
-        const row = document.createElement("tr")
-        const td_artist = document.createElement("td")
-        td_artist.innerText = track.artist
+<!-- Load React. -->
+<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
 
-        const td_track = document.createElement("td")
-        td_track.innerText = track.track
-
-        const td_album_image = document.createElement("td")
-        const img_album_image = document.createElement("img")
-        img_album_image.setAttribute("src", track.album_image_url)
-        td_album_image.appendChild(img_album_image)
-
-        const td_preview_url = document.createElement("td")
-        const a_preview_url = document.createElement("a")
-
-        a_preview_url.setAttribute("href", track.preview_url)
-        a_preview_url.setAttribute("target", "_blank")
-        a_preview_url.innerText = track.preview_url
-        td_preview_url.appendChild(a_preview_url)
-
-        row.append(td_artist, td_track, td_album_image, td_preview_url)
-        return row
-    }
-
-    function getByGenre() {
-        document.querySelectorAll("table tr").forEach(function (e) {
-            e.remove()
-        })
-        const genreInput = document.getElementById("genre")
-        const genre = genreInput.value.trim().toLowerCase()
-        fetch(`/api/tracks/${genre}`).then(resp => resp.json()).then(tracks => {
-            const resultTable = document.getElementById("results")
-            tracks.map(createRow).forEach(row => {
-                resultTable.appendChild(row)
-            })
-        })
-    }
-</script>
+<!-- Load our React component. -->
+<script src="{% static 'app.js' %}"></script>
 </body>
 </html>
